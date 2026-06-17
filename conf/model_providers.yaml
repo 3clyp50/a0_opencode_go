@@ -1,0 +1,39 @@
+chat:
+  opencode_zen:
+    name: OpenCode Zen
+    litellm_provider: openai
+    models_list:
+      endpoint_url: "/models"
+      include:
+        - "^(big-pickle|deepseek-v4-(flash|pro)|glm-5(\\.1)?|grok-build-0\\.1|kimi-k2\\.[56]|minimax-m2\\.[57]|mimo-v2\\.5-free|north-mini-code-free|nemotron-3-ultra-free)$"
+    kwargs:
+      api_base: https://opencode.ai/zen/v1
+  opencode_zen_anthropic:
+    name: OpenCode Zen (Anthropic compatible)
+    litellm_provider: anthropic
+    models_list:
+      endpoint_url: "/models"
+      include:
+        - "^claude-(3-5-haiku|fable-5|haiku-4-5|opus-4-[15678]|sonnet-4(-[56])?)$"
+        - "^qwen3\\.[567]-(max|plus)$"
+    kwargs:
+      api_base: https://opencode.ai/zen/v1
+  opencode_go:
+    name: OpenCode Go
+    litellm_provider: openai
+    models_list:
+      endpoint_url: "/models"
+      include:
+        - "^(deepseek-v4-(flash|pro)|glm-5(\\.[12])?|hy3-preview|kimi-k2\\.(5|6|7-code)|mimo-v2(\\.5)?(-pro|-omni)?|mimo-v2-pro)$"
+    kwargs:
+      api_base: https://opencode.ai/zen/go/v1
+  opencode_go_anthropic:
+    name: OpenCode Go (Anthropic compatible)
+    litellm_provider: anthropic
+    models_list:
+      endpoint_url: "/models"
+      include:
+        - "^minimax-m[23](\\.[257])?$"
+        - "^qwen3\\.[567]-(max|plus)$"
+    kwargs:
+      api_base: https://opencode.ai/zen/go/v1
