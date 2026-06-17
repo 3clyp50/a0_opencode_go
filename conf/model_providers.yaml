@@ -19,7 +19,7 @@ chat:
     kwargs:
       api_base: https://opencode.ai/zen/v1
   opencode_go:
-    name: OpenCode Go
+    name: OpenCode Go (GLM/Kimi/DeepSeek/MiMo)
     litellm_provider: openai
     models_list:
       endpoint_url: "/models"
@@ -28,7 +28,7 @@ chat:
     kwargs:
       api_base: https://opencode.ai/zen/go/v1
   opencode_go_anthropic:
-    name: OpenCode Go (Anthropic compatible)
+    name: OpenCode Go (MiniMax/Qwen)
     litellm_provider: anthropic
     models_list:
       endpoint_url: "/models"
