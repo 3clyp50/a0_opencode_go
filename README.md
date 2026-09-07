@@ -33,3 +33,15 @@ For example, to use MiniMax M2.7:
 - Model: `minimax-m2.7`
 
 Do not enter `opencode-go/minimax-m2.7`, `MiniMax M2.7`, or `MiniMax-M2.7` as the Agent Zero model name. Those are OpenCode UI/config labels, while the API expects the lowercase model ID.
+
+## Troubleshooting
+
+**OpenCode Go / Zen providers do not appear in Model Configuration.**
+
+Agent Zero loads and caches the merged provider registry at startup and when the plugin state changes. If the OpenCode providers are not selectable after enabling the plugin, clear that cache by either:
+
+- Restarting the Agent Zero framework/instance (this re-scans `usr/plugins/` fresh).
+- Toggling the plugin off and back on in the Plugins dialog (this triggers `after_plugin_change()` and refreshes the plugin cache).
+- Clicking **Refresh** in the Plugins dialog if available.
+
+The model provider list is then rebuilt on the next access to Model Configuration.
