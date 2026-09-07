@@ -22,19 +22,17 @@ class OpenCodeKeyAlias(Extension):
         if result and result != "None":
             return
 
-        service = self._service_from_call(data)
+        args = data.get("args")
+        call_kwargs = data.get("kwargs")
+        if isinstance(args, (list, tuple)) and args:
+            service = str(args[0] or "")
+        elif isinstance(call_kwargs, dict):
+            service = str(call_kwargs.get("service") or "")
+        else:
+            return
+
         for alias in KEY_ALIASES.get(service.lower(), ()):
             key = str(models.get_api_key(alias) or "").strip()
             if key and key != "None":
                 data["result"] = key
                 return
-
-    @staticmethod
-    def _service_from_call(data: dict) -> str:
-        args = data.get("args")
-        call_kwargs = data.get("kwargs")
-        if isinstance(args, (list, tuple)) and args:
-            return str(args[0] or "")
-        if isinstance(call_kwargs, dict):
-            return str(call_kwargs.get("service") or "")
-        return ""

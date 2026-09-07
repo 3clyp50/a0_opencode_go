@@ -17,6 +17,12 @@ Paste the API key from your OpenCode account into the corresponding provider row
 
 The plugin also accepts a shared `OPENCODE_API_KEY` / `API_KEY_OPENCODE` environment value. If the Anthropic-compatible Zen or Go entry does not have its own key, it falls back to the matching `opencode_zen` or `opencode_go` key, then to the shared `opencode` key.
 
+## Session affinity
+
+The plugin automatically sends an `x-opencode-session` header on every chat and utility-model request to OpenCode Zen and Go. The value is derived from the current Agent Zero conversation context so requests in the same conversation are routed consistently. This prevents HTTP 400 "Model is unavailable" errors on backends that require sticky session routing.
+
+If you set `extra_headers.x-opencode-session` in your model kwargs, that value is respected and the plugin will not overwrite it.
+
 ## Model names in Agent Zero
 
 Use the exact OpenCode model ID in the Agent Zero model field. Do not include the OpenCode config provider prefix.
