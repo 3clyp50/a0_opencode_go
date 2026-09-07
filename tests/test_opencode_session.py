@@ -103,6 +103,16 @@ def test_preserves_user_session_header():
     assert model.kwargs["extra_headers"][SESSION_HEADER] == "user-session"
 
 
+def test_preserves_title_cased_session_header():
+    model = _FakeModel(
+        "opencode_go",
+        kwargs={"extra_headers": {"X-Opencode-Session": "caller-value"}},
+    )
+    inject_session_header(_FakeAgent("ctx-abc"), model)
+    assert model.kwargs["extra_headers"]["X-Opencode-Session"] == "caller-value"
+    assert SESSION_HEADER not in model.kwargs["extra_headers"]
+
+
 def test_no_agent_leaves_kwargs_untouched():
     model = _FakeModel("opencode_go")
     inject_session_header(None, model)

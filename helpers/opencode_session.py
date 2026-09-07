@@ -31,4 +31,8 @@ def inject_session_header(agent, model) -> None:
     if not isinstance(extra_headers, dict):
         return
 
-    extra_headers.setdefault(SESSION_HEADER, session_id)
+    key_lower = SESSION_HEADER.lower()
+    for k in extra_headers:
+        if k.lower() == key_lower:
+            return
+    extra_headers[SESSION_HEADER] = session_id
