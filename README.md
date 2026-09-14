@@ -27,3 +27,25 @@ For example, to use MiniMax M2.7:
 - Model: `minimax-m2.7`
 
 Do not enter `opencode-go/minimax-m2.7`, `MiniMax M2.7`, or `MiniMax-M2.7` as the Agent Zero model name. Those are OpenCode UI/config labels, while the API expects the lowercase model ID.
+
+## Updating
+
+The `hooks.py` lifecycle hook is named `pre_update()`. Before an update, it moves
+an untracked `webui/thumbnail.webp` downloaded by Plugin Hub to
+`webui/thumbnail.webp.pre-update-backup`. Tracked thumbnails and other local
+files are left alone. An existing backup is never overwritten; move it elsewhere
+before retrying if the hook reports a backup conflict.
+
+Versions before 0.1.4 do not contain this hook. Agent Zero runs the installed hook
+before pulling, so publishing it cannot automatically unblock those versions.
+If their full Git error lists the untracked file `webui/thumbnail.webp`, move
+only that file aside, then retry Update in Plugin Hub. For a standard Docker
+installation, run this inside the Agent Zero container:
+
+```bash
+mv -n -- /a0/usr/plugins/a0_opencode_go/webui/thumbnail.webp \
+  /a0/usr/plugins/a0_opencode_go/webui/thumbnail.webp.pre-update-backup
+```
+
+If that backup already exists, move it elsewhere first. If Git lists other
+conflicting files, preserve and inspect those separately.

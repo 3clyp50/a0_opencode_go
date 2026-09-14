@@ -2,3 +2,4 @@ __pycache__/
 *.py[cod]
 .DS_Store
 .toggle-*
+/webui/thumbnail.webp.pre-update-backup
